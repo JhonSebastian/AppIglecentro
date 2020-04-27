@@ -2,6 +2,16 @@
   justify-content: center;
 }
 
+
+
 .tab-button {
   max-width: 200px;
+}
+:root {
+  ion-tab-button.tab-selected {
+    ion-icon, ion-label {
+      color: var(--ion-color-warning) !important;
+      --ion-color-base: var(--ion-color-warning) !important;
+    }
+  }
 }

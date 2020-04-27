@@ -1,21 +1,27 @@
-ion-fab-button {
-  --background: var(--ion-color-step-150, #fff);
-  --background-hover: var(--ion-color-step-200, #f2f2f2);
-  --background-focused: var(--ion-color-step-250, #d9d9d9);
+@import url('https://fonts.googleapis.com/css?family=Bree+Serif&display=swap');
 
-  --color: var(--ion-color-primary, #3880ff);
+ion-title{
+  font-family: 'Bree Serif', serif;
+}
+ion-toolbar {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  --background: transparent;
+  --color: white;
 }
 
-/*
- * Material Design uses the ripple for activated
- * so only style the iOS activated background
- */
-.ios ion-fab-button {
-  --background-activated: var(--ion-color-step-250, #d9d9d9);
+ion-toolbar ion-button,
+ion-toolbar ion-back-button,
+ion-toolbar ion-menu-button {
+  --color: white;
 }
 
 $categories: (
-  ionic: var(--ion-color-primary),
+  ionic: var(--ion-color-warning),
   angular: #ac282b,
   communication: #8e8d93,
   tooling: #fe4c52,
@@ -32,4 +38,32 @@ $categories: (
     border-left: 2px solid $value;
     padding-left: 10px;
   }
+}
+.about-info{
+  position: absolute;
+  top: 12em;
+  z-index: 2;
+  border-radius: 15px;
+  background: var(--ion-background-color, #fff);
+}
+
+.versiculo{
+  margin-top: 15px;
+  background-color: #333333;
+}
+.versiculo p{
+  padding: 20px;
+  padding-top: 5px;
+  padding-bottom: 0px;
+  //color: #000000;
+}
+img{
+  width: 100%;
+}
+#cita{
+  font-weight: bold;
+  color: #fed035;
+}
+.botones{
+  text-align: center;
 }

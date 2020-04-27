@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
     }
   ];
   loggedIn = false;
-  dark = false;
+  dark = true;
 
   constructor(
     private menu: MenuController,
@@ -121,9 +121,9 @@ export class AppComponent implements OnInit {
     });
   }
 
-  openTutorial() {
+  /*openTutorial() {
     this.menu.enable(false);
     this.storage.set('ion_did_tutorial', false);
     this.router.navigateByUrl('/tutorial');
-  }
+  }*/
 }

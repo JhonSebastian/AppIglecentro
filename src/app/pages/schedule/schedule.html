@@ -1,104 +1,133 @@
-<ion-header translucent="true">
+<ion-header>
   <ion-toolbar>
     <ion-buttons *ngIf="!showSearchbar" slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-segment *ngIf="ios" [(ngModel)]="segment" (ionChange)="updateSchedule()">
-      <ion-segment-button value="all">
-        All
-      </ion-segment-button>
-      <ion-segment-button value="favorites">
-        Favorites
-      </ion-segment-button>
-    </ion-segment>
-    <ion-title *ngIf="!ios && !showSearchbar">Schedule</ion-title>
-    <ion-searchbar *ngIf="showSearchbar" showCancelButton="always" [(ngModel)]="queryText" (ionChange)="updateSchedule()" (ionCancel)="showSearchbar = false" placeholder="Search"></ion-searchbar>
-    <ion-buttons slot="end">
-      <ion-button *ngIf="!ios && !showSearchbar" (click)="showSearchbar = true">
-        <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
-      <ion-button *ngIf="!showSearchbar" (click)="presentFilter()">
-        <span *ngIf="ios">Filter</span>
-        <span *ngIf="!ios">
-          <ion-icon slot="icon-only" name="options"></ion-icon>
-        </span>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-  <ion-toolbar *ngIf="!ios">
-    <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()">
-      <ion-segment-button value="all">
-        All
-      </ion-segment-button>
-      <ion-segment-button value="favorites">
-        Favorites
-      </ion-segment-button>
-    </ion-segment>
+    <ion-title *ngIf="!ios && !showSearchbar">IGLECENTRO</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Schedule</ion-title>
-    </ion-toolbar>
-    <ion-toolbar>
-      <ion-searchbar [(ngModel)]="queryText" (ionChange)="updateSchedule()" placeholder="Search"></ion-searchbar>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+<div style="position: relative;">
+  <div class="about-info">
 
-  <ion-list #scheduleList [hidden]="shownSessions === 0">
-    <ion-item-group *ngFor="let group of groups" [hidden]="group.hide">
-      <ion-item-divider sticky>
-        <ion-label>
-          {{group.time}}
-        </ion-label>
-      </ion-item-divider>
+      <ion-segment [(ngModel)]="anun" color="warning">
+        <ion-segment-button value="anuncios" layout="icon-start">
+          <label>&nbsp;Anuncios</label>
+          <ion-icon name="megaphone"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value="devocionales" layout="icon-start">
+          <label>&nbsp;Cultos</label>
+          <ion-icon name="book"></ion-icon>
+        </ion-segment-button>
+      </ion-segment>
 
-      <ion-item-sliding *ngFor="let session of group.sessions" #slidingItem [attr.track]="session.tracks[0] | lowercase"
-        [hidden]="session.hide">
-        <ion-item routerLink="/app/tabs/schedule/session/{{session.id}}">
-          <ion-label>
-            <h3>{{session.name}}</h3>
-            <p>
-              {{session.timeStart}} &mdash; {{session.timeEnd}}: {{session.location}}
-            </p>
-          </ion-label>
-        </ion-item>
-        <ion-item-options>
-          <ion-item-option color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
-            Favorite
-          </ion-item-option>
-          <ion-item-option color="danger" (click)="removeFavorite(slidingItem, session, 'Remove Favorite')"
-            *ngIf="segment === 'favorites'">
-            Remove
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-item-group>
-  </ion-list>
+      <div [ngSwitch]="anun">
+        <div *ngSwitchCase="'anuncios'">
+          
+                  <ion-card-content class="versiculo">
+                    <div *ngFor="let versiculo of versiculos">
+                      <p class="ion-text-justify" *ngIf="(versiculo.id == [today | date:'d'])"> {{versiculo.versiculo}}</p>
+                      <p class="ion-text-end" id="cita" *ngIf="(versiculo.id == [today | date:'d'])">{{versiculo.cita}}</p>
+                  </div>
+                  </ion-card-content>
 
-  <ion-list-header [hidden]="shownSessions > 0">
-    No Sessions Found
-  </ion-list-header>
+                  <div class="ion-padding">
+                      <ion-card *ngFor="let anuncio of Arranuncios">
+                        <div (click)="openSystem(anuncio.link)">
+                        <img [src]="anuncio.img">
+                        <ion-card-content>
+                         <!-- <video autoplay muted width="100%">
+                            <source [src]="anuncio.video" type="video/x-m4v">
+                          </video>
+                          -->
+                          <ion-card-title color="warning">
+                            {{anuncio.titulo}}
+                          </ion-card-title>
+                          <ion-item>
+                            <ion-icon name="time" slot="start"></ion-icon>
+                            <ion-card-subtitle>{{anuncio.hora}}</ion-card-subtitle>
+                          </ion-item>
+                          <ion-item>
+                            <ion-icon slot="start" name="calendar"></ion-icon>
+                            <ion-card-subtitle>{{anuncio.fecha}}</ion-card-subtitle>
+                          </ion-item>
+                          <p class="ion-text-justify">
+                            {{anuncio.descripcion}}
+                          </p>
+                        </ion-card-content>
+                      </div>
+                      </ion-card>
+                    </div>
+        </div><!--DIV ANUNCIOS-->
+      
+        <div *ngSwitchCase="'devocionales'">
 
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
-    <ion-fab-button>
-      <ion-icon name="share-social"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="top">
-      <ion-fab-button color="vimeo" (click)="openSocial('Vimeo', fab)">
-        <ion-icon name="logo-vimeo"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button color="instagram" (click)="openSocial('Instagram', fab)">
-        <ion-icon name="logo-instagram"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button color="twitter" (click)="openSocial('Twitter', fab)">
-        <ion-icon name="logo-twitter"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button color="facebook" (click)="openSocial('Facebook', fab)">
-        <ion-icon name="logo-facebook"></ion-icon>
-      </ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
+          <ion-card-content class="versiculo">
+            <div *ngFor="let versiculo of versiculos">
+              <p class="ion-text-justify" *ngIf="(versiculo.id == [today | date:'d'])"> {{versiculo.versiculo}}</p>
+              <p class="ion-text-end" id="cita" *ngIf="(versiculo.id == [today | date:'d'])">{{versiculo.cita}}</p>
+          </div>
+          </ion-card-content>
+ 
+          <ion-grid>
+            <ion-row>
+              <ion-col *ngFor="let devocional of Arrdevocional" size="6">
+
+                <ion-card>
+                  <img [src]="devocional.img">
+
+                  <ion-card-content>
+                   <!-- <video autoplay muted width="100%">
+                      <source [src]="anuncio.video" type="video/x-m4v">
+                    </video>
+                    -->
+                    <ion-card-title color="warning">
+                      <h1>{{devocional.titulo}}</h1>
+                    </ion-card-title>
+                    <ion-card-subtitle>
+                      <h2>{{devocional.fecha}}</h2>
+                    </ion-card-subtitle>
+
+                    <section class="botones">
+                      <ion-button (click)="openSystem(devocional.link)" color="warning">
+                        <ion-icon name="eye"></ion-icon>
+                      </ion-button>
+
+                        <ion-button *ngIf="(devocional.audio != '')" (click)="openSystem(devocional.audio)" color="warning">
+                          <ion-icon name="volume-high"></ion-icon>
+                        </ion-button>
+                      
+                    </section>
+                    </ion-card-content>
+                   </ion-card> 
+              
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          
+
+
+        </div><!--DIV DEVOCIONALES-->
+      </div><!--DIV ANUN-->
+     
+    </div><!--DIV CAJA CURVEADA-->
+</div><!--DIV CIERRE CONTENT SUPERPOSICION-->
+
+
+<ion-slides [options]="slideOptsOne">
+
+ <!-- <ion-slide>
+    <img src="../../../assets/img/about/2.jpg">
+  </ion-slide>-->
+  <ion-slide>
+    <img src="../../../assets/img/about/3.jpg">
+  </ion-slide>
+  <ion-slide>
+    <img src="../../../assets/img/about/4.jpg">
+  </ion-slide>
+  <ion-slide>
+    <img src="../../../assets/img/about/1.jpg">
+  </ion-slide>
+</ion-slides>
 </ion-content>

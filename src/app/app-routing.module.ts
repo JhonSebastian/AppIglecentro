@@ -9,20 +9,16 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'account',
-    loadChildren: () => import('./pages/account/account.module').then(m => m.AccountModule)
+    path: 'schedule',
+    loadChildren: () => import('./pages/schedule/schedule.module').then(m => m.ScheduleModule)
+  },
+  {
+    path: 'map',
+    loadChildren: () => import('./pages/map/map.module').then(m => m.MapModule)
   },
   {
     path: 'support',
     loadChildren: () => import('./pages/support/support.module').then(m => m.SupportModule)
-  },
-  {
-    path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
-  },
-  {
-    path: 'signup',
-    loadChildren: () => import('./pages/signup/signup.module').then(m => m.SignUpModule)
   },
   {
     path: 'app',
@@ -32,6 +28,14 @@ const routes: Routes = [
     path: 'tutorial',
     loadChildren: () => import('./pages/tutorial/tutorial.module').then(m => m.TutorialModule),
     canLoad: [CheckTutorial]
+  },
+  {
+    path: 'grupos',
+    loadChildren: () => import('./pages/grupos/grupos.module').then( m => m.GruposPageModule)
+  },
+  {
+    path: 'horarios',
+    loadChildren: () => import('./pages/horarios/horarios.module').then( m => m.HorariosPageModule)
   }
 ];
 

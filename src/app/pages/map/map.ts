@@ -27,7 +27,7 @@ export class MapPage implements AfterViewInit {
     }
 
     const googleMaps = await getGoogleMaps(
-      'AIzaSyB8pf6ZdFQj5qw7rc_HSGrhUwQKfIe9ICw'
+      'AIzaSyAZRvTuR8qrnJqJ_odSeeS6OvEqz6dEWEo'
     );
 
     let map;
@@ -90,7 +90,7 @@ function getGoogleMaps(apiKey: string): Promise<any> {
 
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=3.31`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`;
     script.async = true;
     script.defer = true;
     document.body.appendChild(script);

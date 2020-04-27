@@ -21,6 +21,7 @@
   "dependencies": {
     "@angular/common": "^8.2.14",
     "@angular/core": "^8.2.14",
+    "@angular/fire": "^5.4.2",
     "@angular/forms": "^8.2.14",
     "@angular/platform-browser": "^8.2.14",
     "@angular/platform-browser-dynamic": "^8.2.14",
@@ -28,7 +29,8 @@
     "@angular/router": "^8.2.14",
     "@angular/service-worker": "^8.2.14",
     "@ionic-native/core": "5.0.0-beta.15",
-    "@ionic-native/in-app-browser": "5.0.0-beta.15",
+    "@ionic-native/fcm": "^5.23.0",
+    "@ionic-native/in-app-browser": "^5.0.0-beta.15",
     "@ionic-native/splash-screen": "5.0.0-beta.15",
     "@ionic-native/status-bar": "5.0.0-beta.15",
     "@ionic/angular": "^5.0.4",
@@ -36,6 +38,7 @@
     "cordova-android": "^8.1.0",
     "cordova-ios": "^5.1.1",
     "cordova-plugin-device": "^2.0.3",
+    "cordova-plugin-fcm-with-dependecy-updated": "^4.4.1",
     "cordova-plugin-inappbrowser": "^3.2.0",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.1.3",
@@ -43,6 +46,7 @@
     "cordova-plugin-statusbar": "^2.4.3",
     "cordova-plugin-whitelist": "^1.3.4",
     "core-js": "^3.6.4",
+    "firebase": "^7.12.0",
     "rxjs": "^6.5.4",
     "sw-toolbox": "3.6.0",
     "tslib": "^1.10.0",
@@ -86,9 +90,18 @@
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-whitelist": {},
-      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-ionic-webview": {
+        "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
+      },
       "cordova-plugin-statusbar": {},
-      "cordova-plugin-ionic-keyboard": {}
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-fcm-with-dependecy-updated": {
+        "FCM_VERSION": "19.0.0",
+        "GRADLE_TOOLS_VERSION": "3.5.3",
+        "GOOGLE_SERVICES_VERSION": "4.3.3",
+        "SUPPORT_LIBRARY_VERSION": "28.0.0",
+        "ANDROID_DEFAULT_NOTIFICATION_ICON": "@mipmap/ic_launcher"
+      }
     }
   }
 }
